@@ -5,6 +5,7 @@ class Order < ApplicationRecord
   validates :phone,
             format: { with: /\A\+?1?-?([0-9]\s?|[0-9]?)([(][0-9]{3}[)]\s?|[0-9]{3}[-\s.]?)[0-9]{3}[-\s.]?[0-9]{4,6}\z/,
                       message: 'must be a US phone number' }, if: :text_messages_enabled?
+  has_many :text_messages, as: :activity, dependent: :destroy
 
   after_create :notify
   after_save :notify, if: :saved_change_to_status?
@@ -22,7 +23,13 @@ class Order < ApplicationRecord
     canceled: 99
   }
 
+  def created?
+    return false if new_record?
+
+    super
+  end
+
   def notify
-    # TODO: implement notofications
+    NotificationJob.perform_later(activity: self)
   end
 end

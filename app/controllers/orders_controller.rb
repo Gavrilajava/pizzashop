@@ -21,7 +21,9 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
-  def edit; end
+  def edit
+    @text_messages = @order.text_messages.order(created_at: :desc).limit(LIMIT)
+  end
 
   def update
     return render_error unless @order.update(safe_order_params)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_21_202952) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_21_220658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,22 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_21_202952) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "text_messages", force: :cascade do |t|
+    t.string "sid"
+    t.string "activity_type"
+    t.integer "activity_id"
+    t.text "body"
+    t.string "from"
+    t.string "to"
+    t.string "status"
+    t.string "error_message"
+    t.string "error_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_type", "activity_id"], name: "index_text_messages_on_activity_type_and_activity_id", unique: true
+    t.index ["sid"], name: "index_text_messages_on_sid", unique: true
   end
 
 end

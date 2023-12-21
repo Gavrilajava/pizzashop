@@ -11,4 +11,8 @@ Rails.application.routes.draw do
   get 'orders/offset/:offset', to: 'orders#index', offset: /\d+/, as: 'orders_offset'
   resources :orders, except: %i[show]
   get 'orders/:id', to: 'orders#edit'
+
+  namespace :webhooks do
+    post 'text_messages', to: 'text_messages#update'
+  end
 end

@@ -1,0 +1,30 @@
+.row.justify-content-center
+  .col-md-6.col-12
+    %h2.display-4.text-center
+      Order list
+.row.justify-content-center
+  .col-md-6.col-12.mb-3
+    =link_to 'New Order', new_order_path, class: 'btn btn-primary'
+    -if @offset > 0
+      =link_to 'Previous', @offset > @limit ? orders_offset_path(@offset - @limit) : orders_path, class: 'btn btn-secondary'
+    -if @count > @offset + @limit
+      =link_to 'Next', orders_offset_path(@offset + @limit), class: 'btn btn-secondary'
+.row.justify-content-center
+  .col-md-6.col-12
+    %table.table.table-striped.table-bordered
+      %thead
+        %th #
+        %th Name
+        %th Phone
+        %th Item
+        %th Status
+        %th Time
+      %tbody
+        -@orders.each do |order|
+          %tr
+            %td=order.id
+            %td=link_to order.name, edit_order_path(order)
+            %td=order.phone
+            %td=order.item.titleize
+            %td=order.status.titleize
+            %td=order.created_at.to_s

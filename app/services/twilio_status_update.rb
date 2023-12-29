@@ -22,7 +22,7 @@ class TwilioStatusUpdate
     return unless @activity.text_messages_enabled?
 
     begin
-      message = @client.messages.create(from:, body:, to:, status_callback: WEBHOOK_URL)
+      message = @client.messages.create(from: FROM, body:, to:, status_callback: WEBHOOK_URL)
       Rails.logger.info(message)
     rescue StandardError => e
       @error_message = e

@@ -5,7 +5,7 @@ class NotificationJob < ApplicationJob
   def perform(**args)
     activity = args[:activity]
     logger.info "NotificationJob started for #{activity}"
-    TwilioStatusUpdate.call(activity:, logger:)
+    TwilioStatusUpdate.call(activity:)
     logger.info "NotificationJob done for #{activity}"
   end
 end

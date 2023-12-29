@@ -36,7 +36,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_21_220658) do
     t.string "error_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["activity_type", "activity_id"], name: "index_text_messages_on_activity_type_and_activity_id", unique: true
+    t.index ["activity_type", "activity_id"], name: "index_text_messages_on_activity_type_and_activity_id"
     t.index ["sid"], name: "index_text_messages_on_sid", unique: true
   end
 

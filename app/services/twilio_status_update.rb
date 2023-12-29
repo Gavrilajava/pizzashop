@@ -7,9 +7,8 @@ class TwilioStatusUpdate
 
   attr_reader :from, :to, :body
 
-  def initialize(activity:, logger:)
+  def initialize(activity:)
     @client = Twilio::REST::Client.new(ACCOUNT_SID, AUTH_TOKEN)
-    @logger = logger
     @activity = activity
     @from = FROM
     @body = "Hi, your order status has changed to #{@activity.status}"
@@ -25,10 +24,10 @@ class TwilioStatusUpdate
 
     begin
       message = @client.messages.create(from:, body:, to:, status_callback: WEBHOOK_URL)
-      @logger.info(message)
+      Rails.logger.info(message)
     rescue StandardError => e
       @error_message = e
-      @logger.error(e)
+      Rails.logger.error(e)
       @activity.update(text_messages_enabled: false)
     end
     @activity.text_messages.create(attributes(message))

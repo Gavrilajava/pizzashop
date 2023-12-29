@@ -12,7 +12,7 @@ class CreateTextMessages < ActiveRecord::Migration[7.1]
       t.string :error_code
       t.timestamps
       t.index :sid, unique: true
-      t.index %i[activity_type activity_id], unique: true
+      t.index %i[activity_type activity_id]
     end
   end
 end

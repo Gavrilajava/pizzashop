@@ -7,25 +7,25 @@
     .col-md-6.col-12
       =button_to "delete", @order, :method => :delete, class: 'btn btn-danger'
 =render 'form'
--if @order.created?
-  .row.justify-content-center
-    .col-12
-      %h3.display-6.text-center
-        Last 5 notifications
-      %table.table.table-striped.table-bordered
-        %thead
-          %th #
-          %th From
-          %th To
-          %th Text
-          %th Status
-          %th Time
-        %tbody
-          -@text_messages.each do |message|
-            %tr
-              %td=message.sid
-              %td=message.from
-              %td=message.to
-              %td=message.body
-              %td=message.status
-              %td=message.created_at.to_s
+
+.row.justify-content-center
+  .col-12
+    %h3.display-6.text-center
+      Last 5 notifications
+    %table.table.table-striped.table-bordered
+      %thead
+        %th #
+        %th From
+        %th To
+        %th Text
+        %th Status
+        %th Time
+      %tbody
+        -@text_messages.each do |message|
+          %tr
+            %td=message.sid
+            %td=message.from
+            %td=message.to
+            %td=message.body
+            %td=message.status
+            %td=message.created_at.to_s

@@ -10,7 +10,6 @@ class TwilioStatusUpdate
   def initialize(activity:)
     @client = Twilio::REST::Client.new(ACCOUNT_SID, AUTH_TOKEN)
     @activity = activity
-    @from = FROM
     @body = "Hi, your order status has changed to #{@activity.status}"
     @to = @activity.phone
   end
@@ -36,7 +35,7 @@ class TwilioStatusUpdate
   def attributes(message)
     { sid: message&.sid,
       body: message&.body || body,
-      from:,
+      from: FROM,
       to:,
       status: message&.status || :error,
       error_message: message&.error_message || @error_message,

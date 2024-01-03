@@ -9,6 +9,8 @@ gem 'rails', '~> 7.1.1'
 
 gem 'haml-rails'
 gem 'html2haml'
+gem 'twilio-ruby'
+gem "sassc-rails"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'

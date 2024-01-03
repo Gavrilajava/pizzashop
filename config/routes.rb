@@ -7,6 +7,12 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  root 'orders#new'
+  get 'orders/offset/:offset', to: 'orders#index', offset: /\d+/, as: 'orders_offset'
+  resources :orders, except: %i[show]
+  get 'orders/:id', to: 'orders#edit'
+
+  namespace :webhooks do
+    post 'text_messages', to: 'text_messages#update'
+  end
 end
